@@ -4,6 +4,7 @@ import 'package:dro/controller/Bloc/cubit/cart_cubit.dart';
 import 'package:dro/controller/Bloc/cubit/database_cubit.dart';
 import 'package:dro/controller/Bloc/cubit/suplement_cubit.dart';
 import 'package:dro/core/cart_dialog.dart';
+import 'package:dro/core/messages.dart';
 import 'package:dro/core/styles.dart';
 import 'package:dro/core/top_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int iteamCount = 1;
   int? amount;
-  String? image, name, tablet;
+  //String? image, name, tablet;
   CartCubit? _cartCubit;
 
   @override
@@ -33,9 +34,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     amount = widget.amount;
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _dialogKey = GlobalKey<State>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Column(
         children: [
           TopAppBar(
@@ -76,7 +80,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               height: 6,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50.0),
-                                color: const  Color(0XFFF2C94C),
+                                color: const Color(0XFFF2C94C),
                               ),
                             ),
                           ),
@@ -153,8 +157,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
-                                          children: const [
-                                            Text(
+                                          children: [
+                                            const Text(
                                               "SOLD BY",
                                               style: TextStyle(
                                                 fontFamily: "ProximaNovaFont",
@@ -166,8 +170,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                               ),
                                             ),
                                             Text(
-                                              "Emzor Pharmaceuticals",
-                                              style: TextStyle(
+                                              "${state.suplementList[widget.index].name}",
+                                              style: const TextStyle(
                                                 fontFamily: "ProximaNovaFont",
                                                 fontWeight: FontWeight.w700,
                                                 color: Color(0XFF13447A),
@@ -274,6 +278,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                       onPressed: () {
                                                         setState(() {
                                                           if (iteamCount > 7) {
+                                                            displayErrorMessage(
+                                                              error:
+                                                                  " That is the Maximum Item you can add!",
+                                                              context:
+                                                                  _dialogKey,
+                                                              scaffoldKey:
+                                                                  _scaffoldKey,
+                                                              popStack: false,
+                                                            );
                                                             return;
                                                           } else {
                                                             iteamCount++;
@@ -357,7 +370,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                         ),
                                                       ),
                                                       const Expanded(
-                                                        child:  Padding(
+                                                        child: Padding(
                                                           padding:
                                                               EdgeInsets.only(
                                                             top: 10.0,
@@ -720,7 +733,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   context: context,
                                   barrierDismissible: false,
                                   builder: (context) {
-                                    return const CartDialog();
+                                    return ListView.builder(
+                                      itemCount: state.suplementList.length,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      physics: const BouncingScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        return CartDialog(index: index);
+                                      },
+                                    );
                                   });
                             } catch (e) {
                               log(e.toString());

@@ -538,7 +538,29 @@ class _SearchProductsScreenState extends State<SearchProductsScreen> {
                                                           barrierDismissible:
                                                               false,
                                                           builder: (context) {
-                                                            return const CartDialog();
+                                                            return SingleChildScrollView(
+                                                              scrollDirection:
+                                                                  Axis.horizontal,
+                                                              child: ListView
+                                                                  .builder(
+                                                                itemCount: state
+                                                                    .suplementList
+                                                                    .length,
+                                                                shrinkWrap:
+                                                                    true,
+                                                                scrollDirection:
+                                                                    Axis.horizontal,
+                                                                physics:
+                                                                    const BouncingScrollPhysics(),
+                                                                itemBuilder:
+                                                                    (context,
+                                                                        index) {
+                                                                  return CartDialog(
+                                                                      index:
+                                                                          index);
+                                                                },
+                                                              ),
+                                                            );
                                                           });
                                                     } catch (e) {
                                                       log(e.toString());

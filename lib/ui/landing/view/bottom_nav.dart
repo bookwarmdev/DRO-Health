@@ -23,11 +23,19 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     List pages = [
-      Container(),
-      Container(),
+      const Center(
+        child: Text('Coming Soon'),
+      ),
+      const Center(
+        child: Text('Coming Soon'),
+      ),
       const PharmacyScreen(),
-      Container(),
-      Container(),
+      const Center(
+        child: Text('Coming Soon'),
+      ),
+      const Center(
+        child: Text('Coming Soon'),
+      ),
     ];
     return AnnotatedRegion(
       value: SystemChrome.setEnabledSystemUIMode(

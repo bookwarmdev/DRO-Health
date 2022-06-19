@@ -266,52 +266,52 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: ListView.builder(
-                                itemCount: state.categoriseList.length,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                physics: const BouncingScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              SuplementCategoriiesScreen(
-                                            index: index,
-                                            categories: state
-                                                .categoriseList[index].name,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                      height: 130.0,
-                                      width: 190.0,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                            state.categoriseList[index].image,
-                                          ),
-                                          fit: BoxFit.fill,
+                              itemCount: state.categoriseList.length,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            SuplementCategoriiesScreen(
+                                          index: index,
+                                          categories:
+                                              state.categoriseList[index].name,
                                         ),
                                       ),
-                                      child: Center(
-                                        child: Text(
-                                          state.categoriseList[index].name,
-                                          style: const TextStyle(
-                                            fontFamily: "ProximaNovaFont",
-                                            fontSize: 15.0,
-                                            color: kPrimaryIconColor,
-                                            fontWeight: FontWeight.w700,
-                                          ),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 130.0,
+                                    width: 190.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                          state.categoriseList[index].image,
+                                        ),
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        state.categoriseList[index].name,
+                                        style: const TextStyle(
+                                          fontFamily: "ProximaNovaFont",
+                                          fontSize: 15.0,
+                                          color: kPrimaryIconColor,
+                                          fontWeight: FontWeight.w700,
                                         ),
                                       ),
                                     ),
-                                  );
-                                }),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         );
                       } else if (state is CategoriesError) {
